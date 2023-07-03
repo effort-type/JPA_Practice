@@ -29,8 +29,8 @@ public class JpaMain {
         // DB에 저장, 조회되는 코드 작성하는 부분
         try {
             Member findMember = em.find(Member.class, 1L);
-            System.out.println("findMemeber.id = " + findMember.getId());
-            System.out.println("findMemeber.name = " + findMember.getName());
+
+            findMember.setName("HelloJPA");
 
             tx.commit(); // 필요하면 rollback
         } catch (Exception e) {
