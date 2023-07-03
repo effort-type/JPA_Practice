@@ -1,9 +1,7 @@
 package hellojpa;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
+import javax.persistence.*;
+import java.util.List;
 
 public class JpaMain {
 
@@ -28,9 +26,15 @@ public class JpaMain {
 
         // DB에 저장, 조회되는 코드 작성하는 부분
         try {
-            Member findMember = em.find(Member.class, 1L);
+//            Member findMember = em.find(Member.class, 1L);
 
-            findMember.setName("HelloJPA");
+            // JPQL, Entity 객체를 대상으로 쿼리를 작성할 수 있도록 만들어짐 + 방어를 바꾸거나 해도 변경할 필요가 없다
+            List<Member> result = em.createQuery("select m from Member as m", Member.class)
+                    .getResultList();
+
+            for (Member member : result) {
+                System.out.println("member.name = " + member.getName());
+            }
 
             tx.commit(); // 필요하면 rollback
         } catch (Exception e) {
