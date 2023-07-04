@@ -26,15 +26,21 @@ public class JpaMain {
 
         // DB에 저장, 조회되는 코드 작성하는 부분
         try {
-//            Member findMember = em.find(Member.class, 1L);
 
-            // JPQL, Entity 객체를 대상으로 쿼리를 작성할 수 있도록 만들어짐 + 방어를 바꾸거나 해도 변경할 필요가 없다
-            List<Member> result = em.createQuery("select m from Member as m", Member.class)
-                    .getResultList();
+            // 비영속
+            Member member = new Member();
+            member.setId(101L);
+            member.setName("HelloJPA");
 
-            for (Member member : result) {
-                System.out.println("member.name = " + member.getName());
-            }
+            // 영속
+            System.out.println("=== BEFORE === ");
+            em.persist(member);
+            System.out.println("=== AFTER === ");
+
+            Member findMember = em.find(Member.class, 101L);
+
+            System.out.println("findMember.id = " + findMember.getId());
+            System.out.println("findMember.name = " + findMember.getName());
 
             tx.commit(); // 필요하면 rollback
         } catch (Exception e) {
