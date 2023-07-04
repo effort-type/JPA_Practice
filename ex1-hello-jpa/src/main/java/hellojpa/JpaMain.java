@@ -27,22 +27,17 @@ public class JpaMain {
         // DB에 저장, 조회되는 코드 작성하는 부분
         try {
 
-            // 비영속
-            Member member = new Member();
-            member.setId(101L);
-            member.setName("HelloJPA");
-
             // 영속
-            System.out.println("=== BEFORE === ");
-            em.persist(member);
-            System.out.println("=== AFTER === ");
+            Member member1 = new Member(150L, "A");
+            Member member2 = new Member(160L, "B");
 
-            Member findMember = em.find(Member.class, 101L);
+            em.persist(member1);
+            em.persist(member2);
 
-            System.out.println("findMember.id = " + findMember.getId());
-            System.out.println("findMember.name = " + findMember.getName());
+            // 여기 이전까지는 영속 컨텍스트 안의 쓰기 지연 SQL 저장소에 계속 쌓아둔다.
+            System.out.println("=====================");
 
-            tx.commit(); // 필요하면 rollback
+            tx.commit(); // 이때 쿼리문이 실행된다.
         } catch (Exception e) {
             tx.rollback();
         } finally {
