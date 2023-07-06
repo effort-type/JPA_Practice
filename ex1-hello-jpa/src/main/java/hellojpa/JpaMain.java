@@ -27,15 +27,12 @@ public class JpaMain {
         // DB에 저장, 조회되는 코드 작성하는 부분
         try {
 
-            // 영속
-            Member member1 = new Member(150L, "A");
-            Member member2 = new Member(160L, "B");
+            Member member = new Member();
+            member.setId(2L);
+            member.setUsername("B");
+            member.setRoleType(RoleType.USER);
 
-            em.persist(member1);
-            em.persist(member2);
-
-            // 여기 이전까지는 영속 컨텍스트 안의 쓰기 지연 SQL 저장소에 계속 쌓아둔다.
-            System.out.println("=====================");
+            em.persist(member);
 
             tx.commit(); // 이때 쿼리문이 실행된다.
         } catch (Exception e) {
