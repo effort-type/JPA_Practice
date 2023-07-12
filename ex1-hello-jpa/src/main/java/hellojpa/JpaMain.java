@@ -27,8 +27,16 @@ public class JpaMain {
 
             Member member = new Member();
             member.setUsername("member1");
-            member.setTeamId(team.getId());
+            member.setTeam(team);
             em.persist(member);
+
+            // DB에서 값을 들고오는 것을 확인하기 위해 DB와 싱크를 맞추는 과정, 없으면 1차 캐시에서 가지고 오기 때문에 select 없음
+            em.flush();
+            em.clear();
+            
+            Member findMember = em.find(Member.class, member.getId());
+            Team findTeam = findMember.getTeam();
+            System.out.println("findTeam = " + findTeam.getName());
 
             tx.commit(); // 이때 쿼리문이 실행된다.
         } catch (Exception e) {

@@ -1,7 +1,6 @@
 package hellojpa;
 
 import javax.persistence.*;
-import java.util.Date;
 
 /**
  * 1. @Entity을 반드시 넣어줘야 한다.그러면 관리하는 테이블이라고 인식한다.
@@ -24,8 +23,12 @@ public class Member {
     @Column(name = "USERNAME") // DB의 컬럼 이름과 객체의 변수 이름을 다르게 사용하고자 할 때 명시해주면 된다.
     private String username;
 
-    @Column(name = "TEAM_ID")
-    private Long teamId;
+//    @Column(name = "TEAM_ID")
+//    private Long teamId;
+
+    @ManyToOne
+    @JoinColumn(name = "TEAM_ID")
+    private Team team;
 
     public Long getId() {
         return id;
@@ -43,11 +46,11 @@ public class Member {
         this.username = username;
     }
 
-    public Long getTeamId() {
-        return teamId;
+    public Team getTeam() {
+        return team;
     }
 
-    public void setTeamId(Long teamId) {
-        this.teamId = teamId;
+    public void setTeam(Team team) {
+        this.team = team;
     }
 }
