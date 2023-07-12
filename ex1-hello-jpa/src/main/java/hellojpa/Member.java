@@ -14,22 +14,18 @@ import java.util.Date;
  *       DB column과 변수 이름이 다를 경우에도 @Column(name = "컬럼 이름") 어노테이션을 통해 명시해줘야한다.
  */
 @Entity
-@TableGenerator(
-        name = "MEMBER_SEQ_GENERATOR",
-        table = "MY_SEQUENCES",
-        pkColumnValue = "MEMBER_SEQ", allocationSize = 1)
-
 public class Member {
 
     @Id // primary key 설정
-    @GeneratedValue(strategy = GenerationType.TABLE, generator = "MEMBER_SEQ_GENERATOR")
+    @GeneratedValue
+    @Column(name = "MEMBER_ID")
     private Long id;
 
-    @Column(name = "name",  nullable = false) // DB의 컬럼 이름과 객체의 변수 이름을 다르게 사용하고자 할 때 명시해주면 된다.
+    @Column(name = "USERNAME") // DB의 컬럼 이름과 객체의 변수 이름을 다르게 사용하고자 할 때 명시해주면 된다.
     private String username;
 
-    public Member() {
-    }
+    @Column(name = "TEAM_ID")
+    private Long teamId;
 
     public Long getId() {
         return id;
@@ -45,5 +41,13 @@ public class Member {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public Long getTeamId() {
+        return teamId;
+    }
+
+    public void setTeamId(Long teamId) {
+        this.teamId = teamId;
     }
 }

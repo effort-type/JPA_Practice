@@ -18,18 +18,16 @@ public class JpaMain {
         EntityTransaction tx = em.getTransaction();
         tx.begin();
 
-        /**
-         * EntityManagerFactory는 애플리케이션이 실행될 때 딱 한 번만 생성되어야 한다.
-         * 그리고 애플리케이션이 실행되는 동안 DB에 값을 저장하거나 하는 트랜잭션 단위마다 EntityManager를 만들어줘야한다.
-         * ex) 고객이 로그인해서 장바구니에 상품을 담거나 하는 행위를 할 때마다`
-         */
 
-        // DB에 저장, 조회되는 코드 작성하는 부분
         try {
 
-            Member member = new Member();
-            member.setUsername("B");
+            Team team = new Team();
+            team.setName("TeamA");
+            em.persist(team);
 
+            Member member = new Member();
+            member.setUsername("member1");
+            member.setTeamId(team.getId());
             em.persist(member);
 
             tx.commit(); // 이때 쿼리문이 실행된다.
