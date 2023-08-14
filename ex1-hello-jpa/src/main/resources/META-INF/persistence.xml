@@ -9,13 +9,14 @@
             <property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/> <!-- DBMS에 알맞은 Driver로 변경해서 사용하면 됨 -->
             <property name="javax.persistence.jdbc.user" value="sa"/>
             <property name="javax.persistence.jdbc.password" value=""/>
-            <property name="javax.persistence.jdbc.url" value="jdbc:h2:~/test2"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:h2:tcp://localhost/~/test"/>
             <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/> <!-- DBMS에 알맞은 Dialect로 변경해서 사용하면 됨 -->
 
             <!-- 옵션 -->
             <property name="hibernate.show_sql" value="true"/>
             <property name="hibernate.format_sql" value="true"/>
-            <property name="hibernate.user_sql_comments" value="true"/>
+            <property name="hibernate.use_sql_comments" value="true"/>
+            <property name="hibernate.hbm2ddl.auto" value="create"/> <!-- 테이블 자동 생성 -->
         </properties>
     </persistence-unit>
 </persistence>
